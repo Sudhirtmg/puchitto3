@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<style>
+    .background-video {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: -1; /* Ensure it's behind other content */
+    }
+
+    /* Adjust other styling as needed */
+</style>
+
+    <main class="main pages">
+        <video autoplay loop muted class="background-video">
+            <source src="{% static 'assets/videos/Office - 7269.mp4' %}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="page-header breadcrumb-wrap">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="{% url 'index' %}" rel="nofollow"><i class="fi-rs-home mr-5"></i>ホームページ</a>
+                    <span></span> お問い合わせ<span></span> 
+                </div>
+            </div>
+        </div>
+        <div class="page-content pt-50">
+        
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-10 col-lg-12 m-auto">
+                        <section class="mb-50">
+                         
+                            <div class="row">
+                                <div class="col-xl-8">
+                                    <div class="contact-from-area padding-20-row-col">
+                                        <h2 class="mb-10">お問い合わせ</h2>
+                                        <h4 class="text-success" id="message-response"></h4>
+                                        <form class="contact-form-style mt-30" id="contact-form-ajax"  method="POST">
+                                            {% csrf_token %}
+                                            <div class="row">
+                                                <div class="col-lg-6 col-md-6">
+                                                    <div class="input-style mb-20">
+                                                        <input name="full_name" id="full_name"  placeholder="お名前" type="text" required style="color:red;font-size: 40px;" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6">
+                                                    <div class="input-style mb-20">
+                                                        <input name="email" id="email"  placeholder="メールアドレス" type="email" required style="color:red;font-size: 40px;" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6">
+                                                    <div class="input-style mb-20">
+                                                        <input name="telephone"  id="phone" placeholder="電話番号" type="tel" required style="color:red;font-size: 40px;" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6">
+                                                    <div class="input-style mb-20">
+                                                        <input name="subject"  id="subject" placeholder="タイトル" type="text" required style="color:red;font-size: 40px;"/>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12 col-md-12">
+                                                    <div class="textarea-style mb-30">
+                                                        <textarea name="message" id="message"  placeholder="メッセージ" required style="color:red;font-size: 40px;"></textarea>
+                                                    </div>
+                                                    <button id="contact-form-ajax" class="suebmit submit-auto-width" type="submit">送信する</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <p class="form-messege"></p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 pl-50 d-lg-block d-none">
+                                    <img class="border-radius-15 mt-50" src="{% static 'assets/imgs/page/contact-2.png' %}" alt="" />
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock content %}
