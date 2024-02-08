@@ -63,3 +63,17 @@ class RegisterForm(UserCreationForm):
         fields=['username','email','location','password1','password2']
         verbose_name_plural='新規登録'
 
+    def clean_email(self):
+        email=self.cleaned_data.get('email')
+        if User.objects.filter(email=email):
+            raise forms.ValidationError('メールアドレスがもう登録しました')
+        return email
+        
+    def clean_password2(self):
+        password1=self.cleaned_data.get('password1')
+        password2=self.cleaned_data.get('password2')
+        if password1 and password2:
+            if password1 != password2:
+                raise forms.ValidationError('パスワードに誤りがあります')
+        return password2
+

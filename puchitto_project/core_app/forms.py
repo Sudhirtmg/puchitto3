@@ -8,11 +8,35 @@ class PackageReviewForm(forms.ModelForm):
         fields = ['review', 'rating']
         
 
+
+from django import forms
+from .models import OutInActivity
+
 class Stepone(forms.Form):
     inoutactivity_choices = [(activity.id, activity.title) for activity in OutInActivity.objects.all()]
     INOUT_CHOICES = inoutactivity_choices
     
-    activities = forms.MultipleChoiceField(required=False,widget=forms.CheckboxSelectMultiple, choices=INOUT_CHOICES, label="あなたはどのようにして過ごしていますか❓" )
+    activities = forms.MultipleChoiceField(
+        widget=forms.CheckboxSelectMultiple,
+        choices=INOUT_CHOICES,
+        label="あなたはどのようにして過ごしていますか❓(必)"
+    )
+
+    def clean_activities(self):
+        activities = self.cleaned_data['activities']
+        if not activities:
+            raise forms.ValidationError("一つを選んでください")
+        return activities
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['activities'].required = True
+        self.fields['activities'].error_messages['required'] = '一つを選んでください'
+
+        
+
+
+
 
 class Steptwo(forms.Form):
     personality_choices = [(personality.id, personality.title) for personality in Personality.objects.all()]

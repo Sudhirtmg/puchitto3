@@ -140,7 +140,8 @@ class Package(models.Model):
     title = models.CharField(max_length=100, default="Fresh Pear",verbose_name='パッケージの名')
     image = models.ImageField( upload_to=user_directory_path, default="product.jpg",verbose_name='パッケージの写真')
     description = RichTextField()
-    specification=RichTextField(default="詳細")
+    specification = RichTextField()
+
 
     price = models.DecimalField( max_digits=99999999999999, decimal_places=2, default="1.99",verbose_name='金額')
 

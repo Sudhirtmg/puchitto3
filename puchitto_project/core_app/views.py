@@ -332,20 +332,20 @@ def search(request):
             if activities:
                 packages = Package.objects.filter(activity__in=activities)
             
-            elif personalities:
-                 packages = Package.objects.filter(personality__in=personalities)
+                if personalities:
+                  packages = Package.objects.filter(personality__in=personalities)
  
-            elif subcategories:
-                packages = Package.objects.filter(subcategory__in=subcategories)
+                  if subcategories:
+                     packages = Package.objects.filter(subcategory__in=subcategories)
            
-            elif transports:
-                packages = Package.objects.filter(transport__in=transports)
-           
-            elif parkings:
-                packages = Package.objects.filter(parking__in=parkings)
-           
-            elif addresses:
-                packages = Package.objects.filter(address__in=addresses)
+                     if transports:
+                       packages = Package.objects.filter(transport__in=transports)
+            
+                       if parkings:
+                         packages = Package.objects.filter(parking__in=parkings)
+            
+                         if addresses:
+                           packages = Package.objects.filter(address__in=addresses)
       
             else:
                 packages = Package.objects.all()
